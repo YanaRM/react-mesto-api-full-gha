@@ -1,0 +1,10 @@
+.auth__subtitle-link {
+  cursor: pointer;
+  transition: opacity 0.3s linear;
+  color: white;
+  text-decoration: none;
+}
+
+.auth__subtitle-link:hover {
+  opacity: 60%;
+}

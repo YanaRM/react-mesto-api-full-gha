@@ -1,0 +1,17 @@
+.popup__register-message {
+  margin: 32px auto 0 auto;
+  max-width: 358px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  color: black;
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__register-message {
+    margin-top: 40px;
+    font-size: 20px;
+    line-height: 24px;
+  }
+}

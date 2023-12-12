@@ -1,0 +1,6 @@
+.place__title-container {
+  height: 79px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

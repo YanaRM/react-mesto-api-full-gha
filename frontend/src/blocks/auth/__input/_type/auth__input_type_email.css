@@ -1,0 +1,9 @@
+.auth__input_type_email {
+  margin: 50px 0 0 0;
+}
+
+@media screen and (max-width: 767px) {
+  .auth__input_type_email {
+    margin-top: 40px;
+  }
+}

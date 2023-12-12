@@ -1,0 +1,10 @@
+.popup__container_type_auth {
+
+}
+
+@media screen and (max-width: 767px) {
+  .popup__container_type_auth {
+    width: 280px;
+    height: 308px;
+  }
+}

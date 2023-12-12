@@ -1,0 +1,6 @@
+.header__menu {
+  margin: 0 0 auto auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
