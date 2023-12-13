@@ -1,6 +1,8 @@
 const allowedCors = [
   'http://yanarm.nomoredomainsmonster.ru',
   'https://yanarm.nomoredomainsmonster.ru/',
+  'http://api.yanarm.nomoredomainsmonster.ru'б
+  'http://api.yanarm.nomoredomainsmonster.ru'б
   'http://localhost:3000',
 ];
 
