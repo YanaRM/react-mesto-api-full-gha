@@ -24,8 +24,8 @@ app.use(bodyParser.json());
 
 app.use(requestLogger);
 
-app.use(require('./routes/users'));
-app.use(require('./routes/cards'));
+app.use(require('./routes/users.js'));
+app.use(require('./routes/cards.js'));
 
 app.use(errorLogger);
 
