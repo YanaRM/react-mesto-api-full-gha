@@ -7,22 +7,22 @@ const {
   getUserInfo,
   updateUserInfo,
   updateAvatar,
-} = require('../controllers/users.js');
+} = require('../controllers/users');
 
-const auth = require('../middlewares/auth.js');
+const auth = require('../middlewares/auth');
 const {
   createNewUserValidation,
   loginValidation,
   updateUserInfoValidation,
   updateAvatarValidation,
-  userIdValidation
-} = require('../middlewares/validation.js');
+  userIdValidation,
+} = require('../middlewares/validation');
 
-userRouter.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+// userRouter.get('/crash-test', () => {
+//   setTimeout(() => {
+//     throw new Error('Сервер сейчас упадёт');
+//   }, 0);
+// });
 
 userRouter.post('/signup', createNewUserValidation, createNewUser);
 

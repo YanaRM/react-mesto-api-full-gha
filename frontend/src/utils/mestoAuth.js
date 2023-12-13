@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://yanarm.nomoredomainsmonster.ru';
+export const BASE_URL = 'https://api.yanarm.nomoredomainsmonster.ru';
 export const checkResponse = (res) => {
   if (res.ok) {
     return res.json();

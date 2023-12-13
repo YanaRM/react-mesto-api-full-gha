@@ -4,17 +4,17 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.js');
+const User = require('../models/user');
 const {
   OK,
   CREATED,
   MONGO_DUPLICATE_ERROR_CODE,
-} = require('../responseStatusCodes.js');
+} = require('../responseStatusCodes');
 
-const NotFound = require('../errors/NotFound.js');
-const ExistingEmail = require('../errors/ExistingEmail.js');
-const NotAuthenticate = require('../errors/NotAuthenticate.js');
-const IncorrectData = require('../errors/IncorrectData.js');
+const NotFound = require('../errors/NotFound');
+const ExistingEmail = require('../errors/ExistingEmail');
+const NotAuthenticate = require('../errors/NotAuthenticate');
+const IncorrectData = require('../errors/IncorrectData');
 
 module.exports.createNewUser = (req, res, next) => {
   const {
@@ -26,7 +26,13 @@ module.exports.createNewUser = (req, res, next) => {
   } = req.body;
 
   bcrypt.hash(password, saltRounds)
-    .then((hash) => User.create({ name, about, avatar, email, password: hash }))
+    .then((hash) => User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    }))
     .then((user) => {
       res
         .status(CREATED)
@@ -64,19 +70,19 @@ module.exports.login = (req, res, next) => {
       }
 
       return bcrypt.compare(password, user.password)
-      .then((matched) => {
-        if (!matched) {
-          return Promise.reject(new NotAuthenticate('Неправильные почта или пароль'));
-        }
+        .then((matched) => {
+          if (!matched) {
+            return Promise.reject(new NotAuthenticate('Неправильные почта или пароль'));
+          }
 
-        const token = jwt.sign(
-          { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
-          { expiresIn: '7d' },
+          const token = jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+            { expiresIn: '7d' },
           );
 
-        return res.status(OK).send({ token });
-      });
+          return res.status(OK).send({ token });
+        });
     })
     .catch((err) => {
       next(err);

@@ -1,5 +1,5 @@
 export const apiData = {
-    baseUrl: 'http://yanarm.nomoredomainsmonster.ru',
+    baseUrl: 'https://api.yanarm.nomoredomainsmonster.ru',
     headers: {
       authorization: `Bearer ${localStorage.getItem('jwt')}`,
       'Content-Type': 'application/json'
