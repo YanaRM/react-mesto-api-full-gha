@@ -18,6 +18,12 @@ const {
   userIdValidation
 } = require('../middlewares/validation.js');
 
+userRouter.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 userRouter.post('/signup', createNewUserValidation, createNewUser);
 
 userRouter.post('/signin', loginValidation, login);
