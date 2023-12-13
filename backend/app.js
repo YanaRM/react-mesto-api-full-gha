@@ -27,11 +27,11 @@ app.use(requestLogger);
 app.use(require('./routes/users.js'));
 app.use(require('./routes/cards.js'));
 
-app.use(errorLogger);
-
 app.use('*', (req, res, next) => {
   next(new NotFound('Страница не найдена'));
 });
+
+app.use(errorLogger);
 
 app.use(errors());
 
