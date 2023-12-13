@@ -5,10 +5,10 @@ const {
   deleteCard,
   putLike,
   removeLike,
-} = require('../controllers/cards');
+} = require('../controllers/cards.js');
 
-const auth = require('../middlewares/auth');
-const { createNewCardValidation, cardIdValidation } = require('../middlewares/validation');
+const auth = require('../middlewares/auth.js');
+const { createNewCardValidation, cardIdValidation } = require('../middlewares/validation.js');
 
 cardRouter.get('/cards', auth, getAllCards);
 

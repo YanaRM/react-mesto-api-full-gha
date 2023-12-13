@@ -8,10 +8,10 @@ const helmet = require('helmet');
 // console.log(process.env.NODE_ENV);
 
 const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
-const NotFound = require('./errors/NotFound');
-const errorHandler = require('./middlewares/error-handler');
-const corsHandler = require('./middlewares/cors');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const NotFound = require('./errors/NotFound.js');
+const errorHandler = require('./middlewares/error-handler.js');
+const corsHandler = require('./middlewares/cors.js');
+const { requestLogger, errorLogger } = require('./middlewares/logger.js');
 
 const app = express();
 

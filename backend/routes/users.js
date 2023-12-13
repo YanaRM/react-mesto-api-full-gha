@@ -7,16 +7,16 @@ const {
   getUserInfo,
   updateUserInfo,
   updateAvatar,
-} = require('../controllers/users');
+} = require('../controllers/users.js');
 
-const auth = require('../middlewares/auth');
+const auth = require('../middlewares/auth.js');
 const {
   createNewUserValidation,
   loginValidation,
   updateUserInfoValidation,
   updateAvatarValidation,
   userIdValidation,
-} = require('../middlewares/validation');
+} = require('../middlewares/validation.js');
 
 // userRouter.get('/crash-test', () => {
 //   setTimeout(() => {

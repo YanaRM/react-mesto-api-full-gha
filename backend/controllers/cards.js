@@ -1,11 +1,11 @@
-const Card = require('../models/card');
+const Card = require('../models/card.js');
 const {
   OK,
   CREATED,
-} = require('../responseStatusCodes');
+} = require('../responseStatusCodes.js');
 
-const AccessDenied = require('../errors/AccessDenied');
-const NotFound = require('../errors/NotFound');
+const AccessDenied = require('../errors/AccessDenied.js');
+const NotFound = require('../errors/NotFound.js');
 
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})

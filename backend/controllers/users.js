@@ -4,17 +4,17 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/user.js');
 const {
   OK,
   CREATED,
   MONGO_DUPLICATE_ERROR_CODE,
 } = require('../responseStatusCodes');
 
-const NotFound = require('../errors/NotFound');
-const ExistingEmail = require('../errors/ExistingEmail');
-const NotAuthenticate = require('../errors/NotAuthenticate');
-const IncorrectData = require('../errors/IncorrectData');
+const NotFound = require('../errors/NotFound.js');
+const ExistingEmail = require('../errors/ExistingEmail.js');
+const NotAuthenticate = require('../errors/NotAuthenticate.js');
+const IncorrectData = require('../errors/IncorrectData.js');
 
 module.exports.createNewUser = (req, res, next) => {
   const {
