@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const NotAuthenticate = require('../errors/NotAuthenticate.js');
+const NotAuthenticate = require('../errors/NotAuthenticate');
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;

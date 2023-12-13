@@ -4,7 +4,7 @@ const {
   createNewCard,
   deleteCard,
   putLike,
-  removeLike
+  removeLike,
 } = require('../controllers/cards');
 
 const auth = require('../middlewares/auth');

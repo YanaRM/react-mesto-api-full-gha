@@ -1,8 +1,8 @@
-const Card = require('../models/card.js');
+const Card = require('../models/card');
 const {
   OK,
-  CREATED
- } = require('../responseStatusCodes');
+  CREATED,
+} = require('../responseStatusCodes');
 
 const AccessDenied = require('../errors/AccessDenied');
 const NotFound = require('../errors/NotFound');
