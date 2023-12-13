@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const saltRounds = 10;
