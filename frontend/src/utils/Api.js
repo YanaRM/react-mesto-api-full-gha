@@ -1,9 +1,10 @@
-import { apiData } from './apiData.js';
-
 class Api {
-  constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._headers = options.headers
+  constructor() {
+    this._baseUrl = 'https://api.yanarm.nomoredomainsmonster.ru';
+    this._headers = {
+      authorization: `Bearer ${localStorage.getItem('jwt')}`,
+      'Content-Type': 'application/json'
+    }
   }
 
   _checkResponse(res) {
@@ -89,6 +90,6 @@ class Api {
   }
 }
 
-const api = new Api(apiData);
+const api = new Api();
 
 export default api;

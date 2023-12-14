@@ -46,24 +46,24 @@ module.exports.deleteCard = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.putLike = (req, res, next) => {
-  const { cardId } = req.params;
-
-  Card.findByIdAndUpdate(
-    cardId,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
-    .then((card) => res.send(card))
-    .catch(next);
-};
-
 module.exports.removeLike = (req, res, next) => {
   const { cardId } = req.params;
 
   Card.findByIdAndUpdate(
     cardId,
     { $pull: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((card) => res.send(card))
+    .catch(next);
+};
+
+module.exports.putLike = (req, res, next) => {
+  const { cardId } = req.params;
+
+  Card.findByIdAndUpdate(
+    cardId,
+    { $addToSet: { likes: req.user._id } },
     { new: true },
   )
     .then((card) => res.send(card))
