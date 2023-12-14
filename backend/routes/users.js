@@ -1,26 +1,18 @@
 const userRouter = require('express').Router();
 const {
-  createNewUser,
-  login,
   getAllUsers,
   findUserById,
   getUserInfo,
   updateUserInfo,
   updateAvatar,
-} = require('../controllers/users.js');
+} = require('../controllers/users');
 
-const auth = require('../middlewares/auth.js');
+const auth = require('../middlewares/auth');
 const {
-  createNewUserValidation,
-  loginValidation,
   updateUserInfoValidation,
   updateAvatarValidation,
   userIdValidation,
-} = require('../middlewares/validation.js');
-
-userRouter.post('/signup', createNewUserValidation, createNewUser);
-
-userRouter.post('/signin', loginValidation, login);
+} = require('../middlewares/validation');
 
 userRouter.get('/users', auth, getAllUsers);
 

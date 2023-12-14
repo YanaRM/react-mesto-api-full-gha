@@ -5,17 +5,16 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 
 const saltRounds = 10;
 const jwt = require('jsonwebtoken');
-const User = require('../models/user.js');
+const User = require('../models/user');
 const {
-  OK,
   CREATED,
   MONGO_DUPLICATE_ERROR_CODE,
 } = require('../responseStatusCodes');
 
-const NotFound = require('../errors/NotFound.js');
-const ExistingEmail = require('../errors/ExistingEmail.js');
-const NotAuthenticate = require('../errors/NotAuthenticate.js');
-const IncorrectData = require('../errors/IncorrectData.js');
+const NotFound = require('../errors/NotFound');
+const ExistingEmail = require('../errors/ExistingEmail');
+const NotAuthenticate = require('../errors/NotAuthenticate');
+const IncorrectData = require('../errors/IncorrectData');
 
 module.exports.createNewUser = (req, res, next) => {
   const {
@@ -82,20 +81,16 @@ module.exports.login = (req, res, next) => {
             { expiresIn: '7d' },
           );
 
-          return res.status(OK).send({ token });
+          return res.send({ token });
         });
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 module.exports.getAllUsers = (req, res, next) => {
   User.find({})
-    .then((user) => res.status(OK).send(user))
-    .catch((err) => {
-      next(err);
-    });
+    .then((user) => res.send(user))
+    .catch(next);
 };
 
 module.exports.findUserById = (req, res, next) => {
@@ -106,21 +101,17 @@ module.exports.findUserById = (req, res, next) => {
       if (!user) {
         throw new NotFound('Запрашиваемый пользователь не найден');
       }
-      res.status(OK).send(user);
+      res.send(user);
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 module.exports.getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      res.status(OK).send(user);
+      res.send(user);
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 module.exports.updateUserInfo = (req, res, next) => {
@@ -132,11 +123,16 @@ module.exports.updateUserInfo = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-      upsert: true,
     },
   )
-    .then((user) => res.status(OK).send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new IncorrectData('Неправильно введены данные'));
+
+        return;
+      }
+
       next(err);
     });
 };
@@ -150,11 +146,16 @@ module.exports.updateAvatar = (req, res, next) => {
     {
       new: true,
       runValidators: true,
-      upsert: true,
     },
   )
-    .then((user) => res.status(OK).send(user))
+    .then((user) => res.send(user))
     .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new IncorrectData('Неправильно введены данные'));
+
+        return;
+      }
+
       next(err);
     });
 };

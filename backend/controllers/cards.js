@@ -1,18 +1,14 @@
-const Card = require('../models/card.js');
-const {
-  OK,
-  CREATED,
-} = require('../responseStatusCodes.js');
+const Card = require('../models/card');
+const { CREATED } = require('../responseStatusCodes');
 
-const AccessDenied = require('../errors/AccessDenied.js');
-const NotFound = require('../errors/NotFound.js');
+const AccessDenied = require('../errors/AccessDenied');
+const NotFound = require('../errors/NotFound');
+const IncorrectData = require('../errors/IncorrectData');
 
 module.exports.getAllCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.status(OK).send(cards))
-    .catch((err) => {
-      next(err);
-    });
+    .then((cards) => res.send(cards))
+    .catch(next);
 };
 
 module.exports.createNewCard = (req, res, next) => {
@@ -21,6 +17,12 @@ module.exports.createNewCard = (req, res, next) => {
   Card.create({ name, link, owner: req.user._id })
     .then((card) => res.status(CREATED).send(card))
     .catch((err) => {
+      if (err.name === 'ValidationError') {
+        next(new IncorrectData('Неправильно введены данные'));
+
+        return;
+      }
+
       next(err);
     });
 };
@@ -40,10 +42,8 @@ module.exports.deleteCard = (req, res, next) => {
 
       return Card.deleteOne(card);
     })
-    .then(() => res.status(OK).send({ message: 'Карточка удалена' }))
-    .catch((err) => {
-      next(err);
-    });
+    .then(() => res.send({ message: 'Карточка удалена' }))
+    .catch(next);
 };
 
 module.exports.putLike = (req, res, next) => {
@@ -54,10 +54,8 @@ module.exports.putLike = (req, res, next) => {
     { $addToSet: { likes: req.user._id } },
     { new: true },
   )
-    .then((card) => res.status(OK).send(card))
-    .catch((err) => {
-      next(err);
-    });
+    .then((card) => res.send(card))
+    .catch(next);
 };
 
 module.exports.removeLike = (req, res, next) => {
@@ -68,8 +66,6 @@ module.exports.removeLike = (req, res, next) => {
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-    .then((card) => res.status(OK).send(card))
-    .catch((err) => {
-      next(err);
-    });
+    .then((card) => res.send(card))
+    .catch(next);
 };
