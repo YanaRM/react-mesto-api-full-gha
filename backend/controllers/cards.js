@@ -11,6 +11,18 @@ module.exports.getAllCards = (req, res, next) => {
     .catch(next);
 };
 
+module.exports.removeLike = (req, res, next) => {
+  const { cardId } = req.params;
+
+  Card.findByIdAndUpdate(
+    cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((card) => res.send(card))
+    .catch(next);
+};
+
 module.exports.createNewCard = (req, res, next) => {
   const { name, link } = req.body;
 
@@ -25,6 +37,18 @@ module.exports.createNewCard = (req, res, next) => {
 
       next(err);
     });
+};
+
+module.exports.putLike = (req, res, next) => {
+  const { cardId } = req.params;
+
+  Card.findByIdAndUpdate(
+    cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((card) => res.send(card))
+    .catch(next);
 };
 
 module.exports.deleteCard = (req, res, next) => {
@@ -43,29 +67,5 @@ module.exports.deleteCard = (req, res, next) => {
       return Card.deleteOne(card);
     })
     .then(() => res.send({ message: 'Карточка удалена' }))
-    .catch(next);
-};
-
-module.exports.removeLike = (req, res, next) => {
-  const { cardId } = req.params;
-
-  Card.findByIdAndUpdate(
-    cardId,
-    { $pull: { likes: req.user._id } },
-    { new: true },
-  )
-    .then((card) => res.send(card))
-    .catch(next);
-};
-
-module.exports.putLike = (req, res, next) => {
-  const { cardId } = req.params;
-
-  Card.findByIdAndUpdate(
-    cardId,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
-    .then((card) => res.send(card))
     .catch(next);
 };
