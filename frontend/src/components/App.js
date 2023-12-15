@@ -54,15 +54,7 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i === currentUser._id);
 
-    api.putLike(card._id, localStorage.getItem('jwt'), !isLiked)
-      .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    
-    api.removeLike(card._id, localStorage.getItem('jwt'), isLiked)
+    api.toggleLikeCard(card._id, localStorage.getItem('jwt'), !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
