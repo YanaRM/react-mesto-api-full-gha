@@ -14,7 +14,8 @@ class Api {
   getInitialCards(token) {
     return fetch(`${this._baseUrl}/cards`, {
       headers: {
-        authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
     })
       .then(this._checkResponse);
@@ -24,7 +25,8 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: {
-        authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
     })
       .then(this._checkResponse);
@@ -64,7 +66,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
-        authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
     })
       .then(this._checkResponse);
@@ -74,7 +77,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: {
-        authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
     })
       .then(this._checkResponse);
@@ -84,7 +88,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: {
-        authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json'
       }
     })
       .then(this._checkResponse);
