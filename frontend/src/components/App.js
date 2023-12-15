@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useNavigate, Link } from 'react-router-dom';
+import { Routes, Route, useNavigate, Link } from 'react-router-dom';
 import Header from './Header.js';
 import Main from './Main.js';
 import Footer from './Footer.js';
@@ -52,9 +52,9 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
-    api.putLike(card._id, !isLiked)
+    api.putLike(card._id, localStorage.getItem('jwt'), !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
@@ -62,7 +62,7 @@ function App() {
         console.log(err)
       })
     
-    api.removeLike(card._id, isLiked)
+    api.removeLike(card._id, localStorage.getItem('jwt'), isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
       })
@@ -72,7 +72,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id)
+    api.deleteCard(card._id, localStorage.getItem('jwt'))
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== card._id))
       })
@@ -91,7 +91,7 @@ function App() {
 
   useEffect(() => {
     if (loggedIn) {
-      api.getUserData()
+      api.getUserData(localStorage.getItem('jwt'))
         .then((data) => {
           setCurrentUser(data)
         })
@@ -99,7 +99,7 @@ function App() {
           console.log(err)
         })
 
-      api.getInitialCards()
+      api.getInitialCards(localStorage.getItem('jwt'))
         .then((data) => {
           setCards(data);
           console.log(data)
@@ -115,7 +115,7 @@ function App() {
   }, []);
 
   function handleUpdateUser(data) {
-    api.editProfile(data)
+    api.editProfile(data, localStorage.getItem('jwt'))
       .then((data) => {
         setCurrentUser(data);
         closeAllPopups()
@@ -126,7 +126,7 @@ function App() {
   }
 
   function handleUpdateAvatar(data) {
-    api.editAvatar(data)
+    api.editAvatar(data, localStorage.getItem('jwt'))
       .then((data) => {
         setCurrentUser(data);
         closeAllPopups()
@@ -137,7 +137,7 @@ function App() {
   }
 
   function handleAddPlaceSubmit(data) {
-    api.addNewCard(data)
+    api.addNewCard(data, localStorage.getItem('jwt'))
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups()
